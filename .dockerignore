@@ -1,0 +1,12 @@
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.env
+.git
+.github
+reports/*.html
+reports/*.md
+reports/slack_payload_*.json
+Easycom_Daily_KPI_Walkthrough.pdf
+.DS_Store

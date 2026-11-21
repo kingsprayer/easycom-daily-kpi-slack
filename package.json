@@ -1,0 +1,33 @@
+{
+  "name": "easycom-slack-kpi",
+  "version": "1.0.0",
+  "description": "EasyEcom Daily KPI Reporting & Slack Automation Suite in Node.js",
+  "main": "web_app.js",
+  "type": "module",
+  "scripts": {
+    "start": "node web_app.js",
+    "dev": "node --watch web_app.js",
+    "cron": "node run_daily_kpi.js",
+    "mock": "node run_daily_kpi.js --mock --dry-run",
+    "anomaly": "node run_daily_kpi.js --mock --simulate-anomaly --dry-run",
+    "csv": "node run_daily_kpi.js --from-csv sample_data/sample_easyecom_orders.csv --dry-run"
+  },
+  "keywords": [
+    "easyecom",
+    "slack",
+    "kpi",
+    "ecommerce",
+    "automation",
+    "blockkit"
+  ],
+  "author": "Antigravity",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

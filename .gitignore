@@ -1,0 +1,31 @@
+# Dependencies
+node_modules/
+.npm/
+
+# Build & Hosting Caches
+.netlify/
+.vercel/
+.next/
+dist/
+build/
+
+# Secrets & Environment
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+service-account*.json
+
+# Logs & Artifacts
+*.log
+reports/
+data/daily_raw/
+*.zip
+__pycache__/
+
+# OS & Editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

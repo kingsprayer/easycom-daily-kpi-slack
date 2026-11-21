@@ -1,0 +1,32 @@
+{
+  "company_name": "Easycom",
+  "currency_symbol": "₹",
+  "timezone": "Asia/Kolkata",
+  "reporting": {
+    "report_time_window": "previous_day",
+    "output_dir": "reports",
+    "save_html": true,
+    "save_markdown": true,
+    "append_master_csv": true
+  },
+  "alert_thresholds": {
+    "min_fulfillment_rate_pct": 85.0,
+    "max_return_rate_pct": 12.0,
+    "max_sla_breach_count": 25,
+    "max_oos_skus_count": 15
+  },
+  "sales_channels": [
+    "Amazon",
+    "Flipkart",
+    "Shopify",
+    "Myntra",
+    "QuickCommerce",
+    "Website (Direct)",
+    "B2B / Offline"
+  ],
+  "slack": {
+    "bot_name": "Easycom KPI Intelligence",
+    "bot_icon_emoji": ":bar_chart:",
+    "dashboard_url": "https://dashboard.easyecom.io"
+  }
+}

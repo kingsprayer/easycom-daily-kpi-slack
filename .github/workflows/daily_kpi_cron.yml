@@ -1,0 +1,59 @@
+name: Easycom Daily KPI Slack Automation (Node.js)
+
+on:
+  schedule:
+    # Runs everyday at 03:00 UTC (08:30 AM IST)
+    - cron: '0 3 * * *'
+  workflow_dispatch:
+    inputs:
+      report_date:
+        description: 'Target report date (YYYY-MM-DD). Leave empty for yesterday.'
+        required: false
+        default: ''
+      use_mock:
+        description: 'Run with mock data for testing (true/false)'
+        required: false
+        default: 'false'
+
+jobs:
+  report_and_notify:
+    name: Generate Daily KPI Report & Post to Slack
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: |
+          npm ci
+
+      - name: Execute Daily Report Pipeline & Post to Slack
+        env:
+          EASYECOM_API_KEY: ${{ secrets.EASYECOM_API_KEY }}
+          EASYECOM_JWT_TOKEN: ${{ secrets.EASYECOM_JWT_TOKEN }}
+          EASYECOM_BASE_URL: ${{ secrets.EASYECOM_BASE_URL || 'https://api.easyecom.io' }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          FLAGS=""
+          if [ -n "${{ github.event.inputs.report_date }}" ]; then
+            FLAGS="$FLAGS --date ${{ github.event.inputs.report_date }}"
+          fi
+          if [ "${{ github.event.inputs.use_mock }}" = "true" ]; then
+            FLAGS="$FLAGS --mock"
+          fi
+          node run_daily_kpi.js $FLAGS
+
+      - name: Archive Daily Report Artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: daily-kpi-reports
+          path: reports/
+          retention-days: 30
